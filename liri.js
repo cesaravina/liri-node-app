@@ -1,11 +1,10 @@
-console.log('hi')
-
+// Dependencies
 var keys = require("./keys.js");
 var fs = require("fs");
 var twitter = require('twitter');
-var twitterID = '1905225721';
+var tweetID = '1905225721';
 var spotify = require ('spotify');
-var request = require ('express');
+var request = require ('request');
 var express = require ('express');
 var router = express.Router();
 
@@ -82,12 +81,13 @@ if(command==='do-what-it-says'){
 
 
 function theInputName(){
+	console.log('hi')
 
 	var nodeArgs = process.argv;
 	for (var i=3; i<nodeArgs.length; i++){
 
 		if(i>3 && i<nodeArgs.length){
-
+				console.log('hello')
 			inputName = inputName + "+" + nodeArgs[i];
 
 		}
@@ -141,7 +141,7 @@ function spotifyFunction(value){
 			]
 
 			for (var i=0; i<spotifylogText.length; i++){
-				fs.appendFIle("log.txt", spotifylogText[i] + "\n", function(err){
+				fs.appendFile("log.txt", spotifylogText[i] + "\n", function(err){
 				})
 				console.log(spotifylogText[i]);
 			}
