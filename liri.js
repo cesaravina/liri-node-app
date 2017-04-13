@@ -8,8 +8,8 @@ var request = require ('request');
 var express = require ('express');
 var router = express.Router();
 
-var client = new twitter({
-	consumer_key: keys.twitterKeys.consumer_key,
+var client = new twitter ({
+	consumer_key: keys.twitterKeys.consumer_key, 
 	consumer_secret: keys.twitterKeys.consumer_secret,
 	access_token_key: keys.twitterKeys.access_token_key,
 	access_token_secret: keys.twitterKeys.access_token_secret
@@ -223,23 +223,35 @@ function omdbFunction(value){
 
 
 function twitterFunction(){
-	var params = {screen_name: 'nodejs'};
-	client.get('statuses/user_timeline', params, function(error, tweets, response){
-		if(!error){
+	
+// var params = {screen_name: 'nodejs'};
 
-			for (var i=0; i<20; i++){
+client.get('statuses/user_timeline', function(error, tweets, response) {
+  if (!error) {
+  	console.log("correct");
 
-				var twitterLogText = ["======================",
-				"My Tweets",
-				tweets[i].created_at,
-				tweets[i].text,
-				"======================"
-				];
+  	console.log(tweets);
+    for (var i=0; i<20; i++){
 
-				fs.appendFIle("log.txt", twitterLogText[i]+"\n", function(err){
-				});
-				console.log(twitterLogText[i]);
+
+    var twitterLogText = ["===============================",
+    "My Tweets",
+    tweets[i].created_at,
+    tweets[i].text,
+    "==============================="
+    ];
+
+       console.log(tweets[i].text);
+         console.log(twitterLogText.join("\n"));
+
+
+          fs.appendFile("log.txt",twitterLogText[i]+"\n",function(err){
+          });
+       
 			}
+		}
+		else {
+			console.log(error)
 		}
 	})
 }
